@@ -1,0 +1,3 @@
+@openzeppelin/community-contracts/=lib/openzeppelin-community-contracts/contracts/
+@zk-email/contracts/=lib/openzeppelin-community-contracts/node_modules/@zk-email/contracts/
+@openzeppelin/contracts/=node_modules/@openzeppelin/contracts/
