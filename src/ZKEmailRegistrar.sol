@@ -30,6 +30,8 @@ contract ZKEmailRegistrar {
     ///
     /// @param name The email address that the user is claiming to own, e.g., "myemail@example.com".
     /// @param authMsg The zkemail proof of ownership of the claimed email.
+    ///
+    /// @dev follows similar design as https://github.com/ensdomains/ens-contracts/blob/staging/contracts/dnsregistrar/DNSRegistrar.sol
     function proveAndClaim(bytes memory name, EmailAuthMsg memory authMsg) external {
         ZKEmailUtils.EmailProofError result = authMsg.isValidZKEmail(dkimregistry, verifier, _getCommandTemplate());
 
