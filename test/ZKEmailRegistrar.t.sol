@@ -9,10 +9,7 @@ import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.s
 import {Verifier} from "@zk-email/email-tx-builder/src/utils/Verifier.sol";
 
 contract MockDKIMRegistry {
-    function isDKIMPublicKeyHashValid(
-        string memory,
-        bytes32
-    ) external pure returns (bool) {
+    function isDKIMPublicKeyHashValid(string memory, bytes32) external pure returns (bool) {
         return true;
     }
 }
@@ -21,10 +18,7 @@ contract ZKEmailRegistrarTest is Test {
     ZKEmailRegistrar public zkEmailRegistrar;
 
     function setUp() public {
-        zkEmailRegistrar = new ZKEmailRegistrar(
-            _deployVerifier(address(this)),
-            address(new MockDKIMRegistry())
-        );
+        zkEmailRegistrar = new ZKEmailRegistrar(_deployVerifier(address(this)), address(new MockDKIMRegistry()));
     }
 
     function test_proveAndClaim_shouldClaimWithValidProof() public {
@@ -38,17 +32,10 @@ contract ZKEmailRegistrarTest is Test {
         address verifierProxyAddress;
         Verifier verifierImpl = new Verifier();
         Groth16Verifier groth16Verifier = new Groth16Verifier();
-        console.log(
-            "Groth16Verifier deployed at: %s",
-            address(groth16Verifier)
-        );
+        console.log("Groth16Verifier deployed at: %s", address(groth16Verifier));
         verifierProxyAddress = address(
             new ERC1967Proxy(
-                address(verifierImpl),
-                abi.encodeCall(
-                    verifierImpl.initialize,
-                    (owner, address(groth16Verifier))
-                )
+                address(verifierImpl), abi.encodeCall(verifierImpl.initialize, (owner, address(groth16Verifier)))
             )
         );
         console.log("Verifier deployed at: %s", verifierProxyAddress);

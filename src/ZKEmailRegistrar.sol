@@ -24,16 +24,11 @@ contract ZKEmailRegistrar {
     ///
     /// @param name The email address that the user is claiming to own, e.g., "myemail@example.com".
     /// @param authMsg The zkemail proof of ownership of the claimed email.
-    function proveAndClaim(
-        bytes memory name,
-        EmailAuthMsg memory authMsg
-    ) public {
-        ZKEmailUtils.EmailProofError result = authMsg.isValidZKEmail(
-            dkimregistry,
-            verifier
-        );
+    function proveAndClaim(bytes memory name, EmailAuthMsg memory authMsg) public {
+        ZKEmailUtils.EmailProofError result = authMsg.isValidZKEmail(dkimregistry, verifier);
 
-        if (result != ZKEmailUtils.EmailProofError.NoError)
+        if (result != ZKEmailUtils.EmailProofError.NoError) {
             revert InvalidProof(result);
+        }
     }
 }
